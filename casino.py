@@ -131,6 +131,34 @@ def slotmachine():
     if money <= 0:
         typewrite ("you ran out of money, game over.")
 
+def numberguessinggame():
+    global money
+    typewrite("welcome to the number guessing game!")
+    typewrite("you have $100 to start with, bet wisely.")
+    typewrite("if you run out of money, the game will end.")
+    while money > 0:
+        typewrite(f"you currently have ${money}.")
+        bet = int(input("enter your bet amount (or type 0 to quit): "))
+        if bet == 0:
+            typewrite("thanks for playing.")
+            break
+        elif bet < 0:
+            typewrite("you can't bet a negative amount.")
+            continue
+        elif bet > money:
+            typewrite("you cant bet more than you have.")
+            continue
+        number_to_guess = random.randint(1, 10)
+        guess = int(input("guess a number between 1 and 10: "))
+        if guess == number_to_guess:
+            money += bet * 5
+            typewrite(f"congratulations, you guessed correctly and won ${bet * 5}!")
+        else:
+            money -= bet
+            typewrite(f"sorry, the correct number was {number_to_guess}. You lost ${bet}.")
+    if money <= 0:
+        typewrite("you ran out of money, game over.")
+
 def story():
     typewrite("welcome to story mode, this is a work in progress so it is unfinished.")
     typewrite("You have $100 as a starting amount. Choose the game you want to play to earn or lose money.")
@@ -140,11 +168,12 @@ while running:
     typewrite("1. Heads or Tails")
     typewrite("2. Story Mode")
     typewrite("3. Roll the Dice")
-    typewrite("4. Slot Machine")
+    typewrite("4. Slot Machine (unfinished)")
+    typewrite("5. number guessing game (unfinished)")
     typewrite("0. Quit Game")
 
     try:
-        choice = int(typewrite_input("Make a choice (0 - 4): "))
+        choice = int(typewrite_input("Make a choice (0 - 5): "))
     except ValueError:
         typewrite("invalid input. number please.")
         continue
@@ -157,6 +186,9 @@ while running:
         rollthedice()
     elif choice == 4:
         slotmachine()
+        typewrite("game isn't finished but enjoy!")
+    elif choice == 5:
+        numberguessinggame()
         typewrite("game isn't finished but enjoy!")
     elif choice == 0:
         typewrite("thank you for playing")
